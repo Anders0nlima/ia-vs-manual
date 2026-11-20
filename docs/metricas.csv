@@ -1,0 +1,7 @@
+funcao,metodo,autor,tempo_desenvolvimento_min,qtd_commits,qtd_correcoes_retrabalho,linhas_codigo_loc,complexidade_ciclomatica,alertas_flake8,testes_falharam_inicial,tempo_manutencao_min,manutencao_avaliador,dificuldade_percebida_1_a_5
+F1,MAO/IA,Anderson,,,,,,,,Ale,
+F2,MAO/IA,Anderson,,,,,,,,Ale,
+F3,MAO/IA,Ale,,,,,,,,Edi,
+F4,MAO/IA,Ale,,,,,,,,Edi,
+F5,MAO/IA,Edi,,,,,,,,Anderson,
+F6,MAO/IA,Edi,,,,,,,,Anderson,
