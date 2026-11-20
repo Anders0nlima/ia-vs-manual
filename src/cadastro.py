@@ -4,6 +4,8 @@ Funcoes:
 - F1: cadastrar_livro
 - F2: cadastrar_usuario
 """
+#aceitar emails validos
+import re
 
 
 def cadastrar_livro(titulo: str, autor: str, isbn: str) -> dict:
@@ -61,4 +63,21 @@ def cadastrar_usuario(nome: str, cpf: str, email: str) -> dict:
     Raises:
         ValueError: Caso nome seja vazio, CPF invalido ou e-mail invalido.
     """
-    raise NotImplementedError("Funcao cadastrar_usuario nao implementada ainda.")
+    if not nome or not nome.strip():
+        raise ValueError("Nome obrigatorio")
+
+    if not cpf:
+        raise ValueError("CPF invalido")
+    cpf_limpo = cpf.replace(".", "").replace("-", "").strip()
+    if len(cpf_limpo) != 11 or not cpf_limpo.isdigit() or len(set(cpf_limpo)) == 1:
+        raise ValueError("CPF invalido")
+
+    if not email or not re.match(r"^[^@\s]+@[^@\s\.]+(\.[^@\s\.]+)+$", email.strip()):
+        raise ValueError("Email invalido")
+
+    return {
+        "id": 1,
+        "nome": nome.strip(),
+        "cpf": cpf_limpo,
+        "email": email.strip().lower(),
+    }
