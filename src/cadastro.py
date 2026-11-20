@@ -61,4 +61,11 @@ def cadastrar_usuario(nome: str, cpf: str, email: str) -> dict:
     Raises:
         ValueError: Caso nome seja vazio, CPF invalido ou e-mail invalido.
     """
-    raise NotImplementedError("Funcao cadastrar_usuario nao implementada ainda.")
+    if not nome or not nome.strip():
+        raise ValueError("Nome obrigatorio")
+
+    if not cpf:
+        raise ValueError("CPF invalido")
+    cpf_limpo = cpf.replace(".", "").replace("-", "").strip()
+    if len(cpf_limpo) != 11 or not cpf_limpo.isdigit() or len(set(cpf_limpo)) == 1:
+        raise ValueError("CPF invalido")
