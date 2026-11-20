@@ -21,7 +21,29 @@ def cadastrar_livro(titulo: str, autor: str, isbn: str) -> dict:
     Raises:
         ValueError: Caso titulo ou autor sejam vazios, ou o ISBN seja invalido.
     """
-    raise NotImplementedError("Funcao cadastrar_livro nao implementada ainda.")
+
+    if not titulo or not titulo.strip():
+        raise ValueError("Titulo obrigatorio")
+    if not autor or not autor.strip():
+        raise ValueError("Autor obrigatorio")
+    # Limpeza de espacos e tracos do ISBN
+    isbn_limpo = isbn.replace("-", "").replace(" ", "").strip()
+    # Validacao de ISBN-10 (9 digitos + 1 digito ou 'X')
+    is_isbn10 = (
+        len(isbn_limpo) == 10
+        and isbn_limpo[:9].isdigit()
+        and (isbn_limpo[9].isdigit() or isbn_limpo[9].upper() == "X")
+    )
+    # Validacao de ISBN-13 (13 digitos numericos)
+    is_isbn13 = len(isbn_limpo) == 13 and isbn_limpo.isdigit()
+    if not (is_isbn10 or is_isbn13):
+        raise ValueError("ISBN invalido")
+    return {
+        "id": 1,
+        "titulo": titulo.strip(),
+        "autor": autor.strip(),
+        "isbn": isbn_limpo,
+    }
 
 
 def cadastrar_usuario(nome: str, cpf: str, email: str) -> dict:
