@@ -17,7 +17,11 @@ def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0)
     Returns:
         float: Valor da multa calculado, limitado pelo teto.
     """
-    raise NotImplementedError("Funcao calcular_multa nao implementada ainda.")
+        # Calcula a multa com base nos dias de atraso, valor por dia e teto máximo.
+    if dias_atraso <= 0:
+        return 0.0
+    multa = dias_atraso * valor_dia
+    return min(multa, teto)
 #########
 ###ALE###
 #########
