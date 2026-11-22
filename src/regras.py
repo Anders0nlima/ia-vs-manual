@@ -20,16 +20,17 @@ def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0)
     """
     if dias_atraso <= 0:
         return 0.0
-    
+
     multa_calculada = dias_atraso * valor_dia
     if multa_calculada > teto:
         return float(teto)
-    
+
     return float(multa_calculada)
 
 
-# Autor: Ale
-
+#########
+###ALE###
+#########
 def validar_emprestimo(
     usuario_id: int | str,
     livros_emprestados: int,
@@ -56,7 +57,7 @@ def validar_emprestimo(
         - (False, "Usuario possui multa pendente")
         - (False, "Limite maximo de livros atingido")
     """
-        if valor_multa_pendente > 0:
+    if valor_multa_pendente > 0:
         return False, "Usuario possui multa pendente"
     if livros_emprestados >= limite_livros:
         return False, "Limite maximo de livros atingido"
