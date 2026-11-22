@@ -18,8 +18,9 @@ def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0)
         float: Valor da multa calculado, limitado pelo teto.
     """
     raise NotImplementedError("Funcao calcular_multa nao implementada ainda.")
-
-
+#########
+###ALE###
+#########
 def validar_emprestimo(
     usuario_id: int | str,
     livros_emprestados: int,
@@ -46,4 +47,8 @@ def validar_emprestimo(
         - (False, "Usuario possui multa pendente")
         - (False, "Limite maximo de livros atingido")
     """
-    raise NotImplementedError("Funcao validar_emprestimo nao implementada ainda.")
+    if valor_multa_pendente > 0:
+        return False, "Usuario possui multa pendente"
+    if livros_emprestados >= limite_livros:
+        return False, "Limite maximo de livros atingido"
+    return True, "Emprestimo autorizado"
