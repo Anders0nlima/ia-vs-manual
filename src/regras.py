@@ -6,6 +6,7 @@ Funcoes:
 """
 
 
+# Autor: Ale
 def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0) -> float:
     """Calcula o valor da multa por atraso na devolucao de um livro.
 
@@ -17,7 +18,14 @@ def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0)
     Returns:
         float: Valor da multa calculado, limitado pelo teto.
     """
-    raise NotImplementedError("Funcao calcular_multa nao implementada ainda.")
+    if dias_atraso <= 0:
+        return 0.0
+    
+    multa_calculada = dias_atraso * valor_dia
+    if multa_calculada > teto:
+        return float(teto)
+    
+    return float(multa_calculada)
 
 
 def validar_emprestimo(
