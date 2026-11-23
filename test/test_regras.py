@@ -72,3 +72,25 @@ def test_calcular_multa_estudante_com_desconto():
 
 def test_calcular_multa_estudante_atinge_teto():
     assert calcular_multa(dias_atraso=60, valor_dia=2.0, teto=50.0, is_estudante=True) == 50.0
+
+
+def test_validar_emprestimo_bloqueado_judicialmente():
+    autorizado, motivo = validar_emprestimo(
+        usuario_id=1,
+        livros_emprestados=0,
+        valor_multa_pendente=0.0,
+        bloqueado_judicialmente=True
+    )
+    assert autorizado is False
+    assert motivo == "Usuario bloqueado judicialmente"
+
+
+def test_validar_emprestimo_prioridade_bloqueio_judicial():
+    autorizado, motivo = validar_emprestimo(
+        usuario_id=1,
+        livros_emprestados=5,
+        valor_multa_pendente=20.0,
+        bloqueado_judicialmente=True
+    )
+    assert autorizado is False
+    assert motivo == "Usuario bloqueado judicialmente"
