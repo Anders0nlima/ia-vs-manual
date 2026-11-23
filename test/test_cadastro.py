@@ -67,3 +67,24 @@ def test_cadastrar_usuario_cpf_digitos_iguais():
 def test_cadastrar_usuario_email_invalido():
     with pytest.raises(ValueError, match="Email"):
         cadastrar_usuario("Maria Silva", "12345678901", "maria_sem_arroba.com")
+
+
+def test_cadastrar_usuario_com_telefone_valido_10_digitos():
+    usuario = cadastrar_usuario(
+        "Maria Silva", "123.456.789-01", "maria@email.com", "(11) 3456-7890"
+    )
+    assert usuario["telefone"] == "1134567890"
+
+
+def test_cadastrar_usuario_com_telefone_valido_11_digitos():
+    usuario = cadastrar_usuario(
+        "Maria Silva", "123.456.789-01", "maria@email.com", "(11) 98765-4321"
+    )
+    assert usuario["telefone"] == "11987654321"
+
+
+def test_cadastrar_usuario_telefone_invalido():
+    with pytest.raises(ValueError, match="Telefone invalido"):
+        cadastrar_usuario(
+            "Maria Silva", "123.456.789-01", "maria@email.com", "12345"
+        )

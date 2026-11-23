@@ -48,20 +48,26 @@ def cadastrar_livro(titulo: str, autor: str, isbn: str) -> dict:
     }
 
 
-def cadastrar_usuario(nome: str, cpf: str, email: str) -> dict:
-    """Cadastra um novo usuario validando nome, CPF (11 digitos) e e-mail.
+def cadastrar_usuario(
+    nome: str,
+    cpf: str,
+    email: str,
+    telefone: str | None = None,
+) -> dict:
+    """Cadastra um novo usuario validando nome, CPF, e-mail e telefone.
 
     Args:
         nome: Nome completo do usuario (obrigatorio, nao vazio).
         cpf: CPF com ou sem pontuacao (11 digitos numericos, nao repetidos).
         email: Endereco de e-mail valido.
+        telefone: Telefone opcional (10 ou 11 digitos numericos apos remover formatacao).
 
     Returns:
         dict com os dados normalizados do usuario cadastrado:
-        {'id': int | str, 'nome': str, 'cpf': str, 'email': str}
+        {'id': int | str, 'nome': str, 'cpf': str, 'email': str, 'telefone': str | None}
 
     Raises:
-        ValueError: Caso nome seja vazio, CPF invalido ou e-mail invalido.
+        ValueError: Caso nome vazio, CPF, e-mail ou telefone invalidos.
     """
     if not nome or not nome.strip():
         raise ValueError("Nome obrigatorio")
@@ -75,9 +81,18 @@ def cadastrar_usuario(nome: str, cpf: str, email: str) -> dict:
     if not email or not re.match(r"^[^@\s]+@[^@\s\.]+(\.[^@\s\.]+)+$", email.strip()):
         raise ValueError("Email invalido")
 
+    telefone_limpo = None
+    if telefone is not None:
+        if not isinstance(telefone, str):
+            raise ValueError("Telefone invalido")
+        telefone_limpo = re.sub(r"[\s\(\)\-\.]", "", telefone)
+        if not telefone_limpo.isdigit() or len(telefone_limpo) not in (10, 11):
+            raise ValueError("Telefone invalido")
+
     return {
         "id": 1,
         "nome": nome.strip(),
         "cpf": cpf_limpo,
         "email": email.strip().lower(),
+        "telefone": telefone_limpo,
     }
