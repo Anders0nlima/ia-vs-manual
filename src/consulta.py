@@ -19,7 +19,19 @@ def buscar_livros(termo: str, acervo: list[dict]) -> list[dict]:
     Raises:
         ValueError: Caso o termo seja vazio ou nulo.
     """
-    raise NotImplementedError("Funcao buscar_livros nao implementada ainda.")
+    if not termo or not termo.strip():
+        raise ValueError("Termo de busca obrigatorio")
+
+    termo_normalizado = termo.strip().lower()
+    resultado = []
+
+    for livro in acervo:
+        titulo = livro.get("titulo", "").lower()
+        autor = livro.get("autor", "").lower()
+        if termo_normalizado in titulo or termo_normalizado in autor:
+            resultado.append(livro)
+
+    return resultado
 
 
 def listar_emprestimos_atrasados(emprestimos: list[dict], data_referencia: str) -> list[dict]:
