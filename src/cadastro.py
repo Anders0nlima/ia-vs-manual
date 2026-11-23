@@ -5,23 +5,30 @@ Funcoes:
 - F2: cadastrar_usuario
 """
 #aceitar emails validos
+from datetime import date
 import re
 
 
-def cadastrar_livro(titulo: str, autor: str, isbn: str) -> dict:
-    """Cadastra um novo livro validando titulo, autor e ISBN (ISBN-10 ou ISBN-13).
+def cadastrar_livro(
+    titulo: str,
+    autor: str,
+    isbn: str,
+    ano_publicacao: int | None = None,
+) -> dict:
+    """Cadastra um novo livro validando titulo, autor, ISBN e ano de publicacao.
 
     Args:
         titulo: Titulo da obra (obrigatorio, nao vazio).
         autor: Autor da obra (obrigatorio, nao vazio).
         isbn: Codigo ISBN (pode conter tracos/espacos).
+        ano_publicacao: Ano de publicacao opcional (entre 1500 e o ano corrente).
 
     Returns:
         dict com os dados normalizados do livro cadastrado:
-        {'id': int | str, 'titulo': str, 'autor': str, 'isbn': str}
+        {'id': int | str, 'titulo': str, 'autor': str, 'isbn': str, 'ano_publicacao': int | None}
 
     Raises:
-        ValueError: Caso titulo ou autor sejam vazios, ou o ISBN seja invalido.
+        ValueError: Caso titulo/autor vazios, ISBN invalido ou ano de publicacao invalido.
     """
 
     if not titulo or not titulo.strip():
@@ -40,11 +47,23 @@ def cadastrar_livro(titulo: str, autor: str, isbn: str) -> dict:
     is_isbn13 = len(isbn_limpo) == 13 and isbn_limpo.isdigit()
     if not (is_isbn10 or is_isbn13):
         raise ValueError("ISBN invalido")
+
+    if ano_publicacao is not None:
+        ano_atual = date.today().year
+        if (
+            isinstance(ano_publicacao, bool)
+            or not isinstance(ano_publicacao, int)
+            or ano_publicacao < 1500
+            or ano_publicacao > ano_atual
+        ):
+            raise ValueError("Ano de publicacao invalido")
+
     return {
         "id": 1,
         "titulo": titulo.strip(),
         "autor": autor.strip(),
         "isbn": isbn_limpo,
+        "ano_publicacao": ano_publicacao,
     }
 
 

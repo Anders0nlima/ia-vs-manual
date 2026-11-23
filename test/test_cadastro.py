@@ -37,6 +37,27 @@ def test_cadastrar_livro_isbn_invalido():
         cadastrar_livro("Titulo Valido", "Autor Valido", "12345")
 
 
+def test_cadastrar_livro_com_ano_publicacao_valido():
+    livro = cadastrar_livro(
+        "Dom Casmurro", "Machado de Assis", "0-306-40615-2", 1899
+    )
+    assert livro["ano_publicacao"] == 1899
+
+
+def test_cadastrar_livro_ano_publicacao_menor_que_1500():
+    with pytest.raises(ValueError, match="Ano de publicacao invalido"):
+        cadastrar_livro(
+            "Dom Casmurro", "Machado de Assis", "0-306-40615-2", 1499
+        )
+
+
+def test_cadastrar_livro_ano_publicacao_futuro():
+    with pytest.raises(ValueError, match="Ano de publicacao invalido"):
+        cadastrar_livro(
+            "Dom Casmurro", "Machado de Assis", "0-306-40615-2", 2099
+        )
+
+
 # ==========================================================
 # TESTES PARA F2: CADASTRAR USUARIO
 # ==========================================================
