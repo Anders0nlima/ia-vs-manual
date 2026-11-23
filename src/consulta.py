@@ -39,7 +39,7 @@ def buscar_livros(termo: str, acervo: list[dict], ordenar_titulo: bool = False) 
     return resultado
 
 
-def listar_emprestimos_atrasados(emprestimos: list[dict], data_referencia: str) -> list[dict]:
+def listar_emprestimos_atrasados(emprestimos: list[dict], data_referencia: str, dias_minimos_atraso: int = 1) -> list[dict]:
     """Filtra emprestimos ativos cuja data prevista de devolucao e anterior a data de referencia.
 
     Args:
@@ -68,8 +68,11 @@ def listar_emprestimos_atrasados(emprestimos: list[dict], data_referencia: str) 
 
         data_prevista = datetime.strptime(emprestimo["data_prevista"], "%Y-%m-%d")
 
-        # Atrasado = data prevista antes da data de referência
-        if data_prevista < data_ref:
+        #dias de atraso 
+        dias_atraso = (data_ref - data_prevista).days
+
+        #maior ou igual ao minimo estipulado 
+        if dias_atraso >= dias_minimos_atraso:
             atrasados.append(emprestimo)
 
     return atrasados
