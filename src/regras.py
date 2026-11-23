@@ -7,7 +7,7 @@ Funcoes:
 
 
 # Autor: Ale
-def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0) -> float:
+def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0, is_estudante: bool = False) -> float:
     """Calcula o valor da multa por atraso na devolucao de um livro.
 
     Args:
@@ -22,6 +22,10 @@ def calcular_multa(dias_atraso: int, valor_dia: float = 2.0, teto: float = 50.0)
         return 0.0
 
     multa_calculada = dias_atraso * valor_dia
+
+    if is_estudante:
+        multa_calculada *= 0.5
+
     if multa_calculada > teto:
         return float(teto)
 
