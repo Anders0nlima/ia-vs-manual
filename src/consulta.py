@@ -50,9 +50,11 @@ def listar_emprestimos_atrasados(emprestimos: list[dict], data_referencia: str) 
     Raises:
         ValueError: Caso a data de referencia nao esteja no formato ISO YYYY-MM-DD valido.
     """
-
-    # Valida o formato da data (strptime levanta ValueError se estiver errado)
-    data_ref = datetime.strptime(data_referencia, "%Y-%m-%d")
+    # Valida o formato da data de referência
+    try:
+        data_ref = datetime.strptime(data_referencia, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError(f"Data de referencia invalida: '{data_referencia}'. Use o formato YYYY-MM-DD.")
 
     atrasados = []
 
