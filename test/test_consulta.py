@@ -57,6 +57,10 @@ def test_buscar_livros_termo_vazio(acervo_exemplo):
     with pytest.raises(ValueError, match="Termo"):
         buscar_livros("   ", acervo_exemplo)
 
+def test_buscar_livros_ordenado_por_titulo(acervo_exemplo):
+    resultado = buscar_livros("e", acervo_exemplo, ordenar_titulo=True)
+    titulos = [l["titulo"] for l in resultado]
+    assert titulos == sorted(titulos)
 
 # ==========================================================
 # TESTES PARA F6: LISTAR EMPRESTIMOS ATRASADOS

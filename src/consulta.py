@@ -8,7 +8,7 @@ Funcoes:
 from datetime import datetime
 
 
-def buscar_livros(termo: str, acervo: list[dict]) -> list[dict]:
+def buscar_livros(termo: str, acervo: list[dict], ordenar_titulo: bool = False) -> list[dict]:
     """Busca livros no acervo por titulo ou autor (busca parcial e case-insensitive).
 
     Args:
@@ -32,6 +32,9 @@ def buscar_livros(termo: str, acervo: list[dict]) -> list[dict]:
         autor = livro.get("autor", "").lower()
         if termo_normalizado in titulo or termo_normalizado in autor:
             resultado.append(livro)
+
+    if ordenar_titulo:
+        resultado.sort(key=lambda x: x["titulo"])
 
     return resultado
 
