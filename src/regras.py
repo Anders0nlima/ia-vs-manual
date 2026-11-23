@@ -39,7 +39,8 @@ def validar_emprestimo(
     usuario_id: int | str,
     livros_emprestados: int,
     valor_multa_pendente: float,
-    limite_livros: int = 3
+    limite_livros: int = 3,
+    bloqueado_judicialmente: bool = False
 ) -> tuple[bool, str]:
     """Valida se o usuario pode realizar um novo emprestimo.
 
@@ -61,6 +62,8 @@ def validar_emprestimo(
         - (False, "Usuario possui multa pendente")
         - (False, "Limite maximo de livros atingido")
     """
+    if bloqueado_judicialmente:
+        return False, "Usuario bloqueado judicialmente"
     if valor_multa_pendente > 0:
         return False, "Usuario possui multa pendente"
     if livros_emprestados >= limite_livros:
