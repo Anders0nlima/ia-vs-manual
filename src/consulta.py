@@ -5,6 +5,8 @@ Funcoes:
 - F6: listar_emprestimos_atrasados
 """
 
+from datetime import datetime
+
 
 def buscar_livros(termo: str, acervo: list[dict]) -> list[dict]:
     """Busca livros no acervo por titulo ou autor (busca parcial e case-insensitive).
@@ -48,4 +50,23 @@ def listar_emprestimos_atrasados(emprestimos: list[dict], data_referencia: str) 
     Raises:
         ValueError: Caso a data de referencia nao esteja no formato ISO YYYY-MM-DD valido.
     """
-    raise NotImplementedError("Funcao listar_emprestimos_atrasados nao implementada ainda.")
+    # Valida o formato da data de referência
+    try:
+        data_ref = datetime.strptime(data_referencia, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError(f"Data de referencia invalida: '{data_referencia}'. Use o formato YYYY-MM-DD.")
+
+    atrasados = []
+
+    for emprestimo in emprestimos:
+        # Só interessa quem ainda está ativo
+        if emprestimo["status"] != "ativo":
+            continue
+
+        data_prevista = datetime.strptime(emprestimo["data_prevista"], "%Y-%m-%d")
+
+        # Atrasado = data prevista antes da data de referência
+        if data_prevista < data_ref:
+            atrasados.append(emprestimo)
+
+    return atrasados
