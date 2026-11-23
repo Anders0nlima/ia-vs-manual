@@ -1,6 +1,6 @@
 funcao,metodo,autor,tempo_desenvolvimento_min,qtd_commits,qtd_correcoes_retrabalho,linhas_codigo_loc,complexidade_ciclomatica,alertas_flake8,testes_falharam_inicial,tempo_manutencao_min,manutencao_avaliador,dificuldade_percebida_1_a_5
-F1,IA,Anderson,06:58,4,0,38,,,0,,Ale,
-F2,MAO,Anderson,31:06,4,0,33,,,0,,Ale,
+F1,IA,Anderson,06:58,4,0,38,,,0,03:30,Ale,2
+F2,MAO,Anderson,31:06,4,0,33,,,0,04:15,Ale,2
 F3,IA,Ale,00:15,4,0,19,,,0,,Edi,
 F4,MAO,Ale,12:00,3,0,31,,,0,,Edi,
 F5,IA,Edi,03:52,4,0,26,,,0,,Anderson,
