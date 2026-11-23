@@ -66,3 +66,9 @@ def test_validar_emprestimo_limite_customizado():
         limite_livros=5
     )
     assert autorizado is True
+
+def test_calcular_multa_estudante_com_desconto():
+    assert calcular_multa(dias_atraso=10, valor_dia=2.0, teto=50.0, is_estudante=True) == 10.0
+
+def test_calcular_multa_estudante_atinge_teto():
+    assert calcular_multa(dias_atraso=60, valor_dia=2.0, teto=50.0, is_estudante=True) == 50.0
