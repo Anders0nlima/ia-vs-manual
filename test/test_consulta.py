@@ -99,3 +99,12 @@ def test_listar_emprestimos_limite_mesmo_dia(emprestimos_exemplo):
 def test_listar_emprestimos_data_invalida(emprestimos_exemplo):
     with pytest.raises(ValueError, match="Data"):
         listar_emprestimos_atrasados(emprestimos_exemplo, "20-11-2026")
+
+def test_listar_emprestimos_atrasados_dias_minimos(emprestimos_exemplo):
+    resultado = listar_emprestimos_atrasados(
+        emprestimos_exemplo, "2026-11-20", dias_minimos_atraso=7
+    )
+    ids_atrasados = [e["id"] for e in resultado]
+    assert len(resultado) == 1
+    assert 101 in ids_atrasados
+    assert 104 not in ids_atrasados
